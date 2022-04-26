@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title></title>
+    <style type="text/css">
+        .prop{
+            height: 50px;
+            width: 150px;
+            background-image: url("nore.jpg");
+            background-size: 110%;
+            background-repeat: no-repeat;
+            position: absolute;
+            z-index: 2;
+        }
+        .main{
+            width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .moleNorm{
+            height: 50px;
+            width: 150px;
+            background-image: url("barb.jpg");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            position: absolute;
+            transition: 0.7s;
+        }
+        .moleGood{
+            height: 50px;
+            width: 150px;
+            background-image: url("hogrider.png");
+            background-size: 100%;
+            position: absolute;
+            transition: 0.7s;
+        }
+        .bomb{
+            height: 50px;
+            width: 150px;
+            background-image: url("bob.jpg");
+            background-size: 100%;
+            position: absolute;
+            transition: 0.7s;
+        }
+    </style>
+</head>
+<body>
+ 	<h1>Время: <span class="span">60</span></h1>
+ 	<h1>Очки: <span class="span1">0</span></h1>
+    <div class="prop" style="top: 100px; left: 375px;"></div>
+    <div class="prop" style="top: 100px; left: 575px;"></div>
+    <div class="prop" style="top: 100px; left: 775px;"></div>
+    <div class="prop" style="top: 300px; left: 375px;"></div>
+    <div class="prop" style="top: 300px; left: 575px;"></div>
+    <div class="prop" style="top: 300px; left: 775px;"></div>
+    <div class="prop" style="top: 500px; left: 375px;"></div>
+    <div class="prop" style="top: 500px; left: 575px;"></div>
+    <div class="prop" style="top: 500px; left: 775px;"></div>
+	<script type="text/javascript">
+		let classes = ['moleNorm', 'moleGood', 'bomb']
+	    let tops = [100, 100, 100, 300, 300, 300, 500, 500, 500]
+	    let lefts = [375, 575, 775, 375, 575, 775, 375, 575, 775]
+	    let time = 60
+	    let score = 0
+	    let span = document.querySelector('.span')
+	    let span1 = document.querySelector('.span1')
+	    function getRandom(number){
+	        let rand = Math.random() * number
+	        let round = Math.round(rand)
+	        return round
+	    }
+	    function create_mole(){
+	        let mole = document.createElement('div')
+	        document.body.appendChild(mole)
+	        randomImg = getRandom(2)
+        	mole.classList.add(classes[randomImg])
+        	if(randomImg == 0){
+        		mole.type = 'norm'
+        	}
+        	else if(randomImg == 1){
+        		mole.type = 'good'
+        	}
+        	else if(randomImg == 2){
+        		mole.type = 'bad'
+        	}
+            let index = getRandom(8)
+            mole.style.top = tops[index] + "px"
+            mole.style.left = lefts[index] + "px" 
+            mole.onclick = function(){
+                mole.style.display = "none"
+                if(mole.type == "norm"){
+                    score = score + 1
+                    span1.innerHTML = score
+                } 
+                else if(mole.type == "good"){
+                    score = score + 2
+                    span1.innerHTML = score
+                }
+                else if(mole.type == "bad"){
+                    score = score - 4
+                    span1.innerHTML = score
+                }
+            }
+            function up(){
+                mole.style.top = tops[index] - 50 + "px"
+            }
+            function down(){
+                mole.style.top = tops[index] + "px"
+            }
+            function hehehehaw(){
+            	mole.remove()
+            }
+            setTimeout(up, 100)
+            setTimeout(down, 1500)
+            setTimeout(hehehehaw, 2100)
+	    }
+	    function timer(){
+	    	time = time - 1
+	    	span.innerHTML = time
+	    }
+	    function stop(){
+	    	clearInterval(ghas)
+	    	clearInterval(fgh)
+	    }
+	    let fgh = setInterval(create_mole, 1000)
+        let ghas = setInterval(timer, 1000)
+        let jas = setTimeout(stop, 60000)
+	</script>
+</body>
+</html>
